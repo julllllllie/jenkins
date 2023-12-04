@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Récupération du code source depuis le référentiel Git
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Exécution de la cible Maven "compile"
+                sh 'mvn compile'
+            }
+        }
+
+        // Ajoutez d'autres étapes selon vos besoins (tests, déploiement, etc.)
+    }
+
+    post {
+        always {
+            // Nettoyer après le build, par exemple, en supprimant les artefacts temporaires
+            cleanWs()
+        }
+    }
+}
